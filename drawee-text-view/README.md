@@ -17,6 +17,8 @@ builder.append("bilibili- ( ゜- ゜)つロ 乾杯~\n");
 
 textview.setText(builder);
 ```
+
+![demo](art/1.png)
 ![demo](art/screenshot.png)
 
 
