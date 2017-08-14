@@ -1,7 +1,8 @@
-# DraweeTextView 援引：https://github.com/Bilibili/drawee-text-view.git
-对于bibili分享的DraweeText进一步定制，可使图文居中对齐
-
-
+# DraweeTextView
+Simple drawee spannable text view based on [Fresco][1].  
+[![Build Status](https://travis-ci.org/Bilibili/drawee-text-view.svg?branch=master)](https://travis-ci.org/Bilibili/drawee-text-view)
+# Usage
+```java
 DraweeTextView textview = (DraweeTextView)findViewById(R.id.text);
 
 SpannableStringBuilder builder = new SpannableStringBuilder();
@@ -15,3 +16,9 @@ builder.append("bilibili- ( ゜- ゜)つロ 乾杯~\n");
 ...
 
 textview.setText(builder);
+```
+
+![image](screenshot.png)
+
+
+[1]: https://github.com/facebook/fresco
