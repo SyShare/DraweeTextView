@@ -40,6 +40,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.bilibili.draweetext.DraweeSpan;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
 
         @Override
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
                     return "ListView";
                 case 2:
                     return "RecyclerView";
+                case 3:
+                    return "RecyclerViewFullImage";
                 default:
                     throw new IndexOutOfBoundsException();
             }
@@ -87,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
                     return ListViewFragment.newInstance();
                 case 2:
                     return RecyclerViewFragment.newInstance();
+                case 3:
+                    return RecyclerViewFragment2.newInstance();
                 default:
                     throw new IndexOutOfBoundsException();
             }
@@ -358,6 +363,62 @@ public class MainActivity extends AppCompatActivity {
             public TextViewHolder(View itemView) {
                 super(itemView);
                 text = (TextView) itemView;
+            }
+        }
+
+        public static Fragment newInstance() {
+            return new RecyclerViewFragment();
+        }
+    }
+
+
+    public static class RecyclerViewFragment2 extends Fragment {
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.fragment_recycler, container, false);
+        }
+
+        @Override
+        public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            recyclerView.setHasFixedSize(true);
+
+            recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+                @Override
+                public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                    outRect.inset(8, 8);
+                }
+            });
+
+            recyclerView.setAdapter(new RecyclerView.Adapter<TextViewHolder>() {
+
+                @Override
+                public TextViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                    return new TextViewHolder(LayoutInflater.from(parent.getContext())
+                            .inflate(R.layout.simple_view, parent, false));
+                }
+
+                @Override
+                public void onBindViewHolder(TextViewHolder holder, int position) {
+                    holder.sdv.setImageURI(EMOTIONS[position]);
+                }
+
+                @Override
+                public int getItemCount() {
+                    return EMOTIONS.length;
+                }
+            });
+        }
+
+        static class TextViewHolder extends RecyclerView.ViewHolder {
+            SimpleDraweeView sdv;
+
+            public TextViewHolder(View itemView) {
+                super(itemView);
+                sdv = (SimpleDraweeView) itemView;
             }
         }
 

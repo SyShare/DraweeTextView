@@ -3,10 +3,20 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+
+        // Gradle 插件的仓库
+        maven {
+            url  "https://dl.bintray.com/sharebysy/Depend"
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
-
+        classpath 'com.android.tools.build:gradle:3.1.0'
+        classpath 'com.depend:depes:1.0.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -14,9 +24,21 @@ buildscript {
 
 
 allprojects {
+
+    apply plugin: 'com.depend'
+
     repositories {
         jcenter()
+        google()
+        maven { url "https://jitpack.io" }
+        maven { url  "https://dl.bintray.com/sharebysy/Depend" }
+
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
+
 }
 
 task clean(type: Delete) {
@@ -25,5 +47,4 @@ task clean(type: Delete) {
 
 ext {
     frescoVersion = '1.0'
-    supportLibraryVersion = '25.0.1'
 }
